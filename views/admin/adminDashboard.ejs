@@ -1,0 +1,92 @@
+<%-include('../layout/header')-%>
+<style>
+#addu{
+  text-decoration: none;
+}
+</style>
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#">Admin Panel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto"> <!-- Use ms-auto to push to the right -->
+              <a class="nav-link active hai" aria-current="page" href="/adminsignout">Logout</a>
+          </div>
+      </div>
+  </div>
+</nav>
+
+<!-- Add Search Box -->
+    <div class="container mt-4">
+      <label for="searchInput" class="form-label">Search by Name:</label>
+      <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Enter name">
+    </div>
+    <table class="table">
+        <caption>completed</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <!-- <th scope="col">Password</th> -->
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% let serialNumber = 1; %>
+          
+            <% users.forEach(user => { %>
+              <%if(user.is_admin!==1){ %>
+          <tr>
+            <th scope="row"><%=serialNumber %></th>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <!-- <td><%= user.password %></td> -->
+          
+    <td>     
+              <a href="/edituser/<%= user._id %>"> <button type="submit">update</button></a>
+      </td>
+      
+    <td>
+            <form action="/userdelete/<%= user._id %>" method="post">
+            
+              <button type="submit">Delete</button>
+            </form>
+    </td>
+
+
+          <!-- <td><form action="/userdelete" method="post"> <button >delete</button></form> </td> -->
+          </tr>
+          <% serialNumber++; %>
+          <% }; %>
+          <% }); %>
+        </tbody>
+      </table>
+    <!-- <button>add new user</button> -->
+
+
+
+    <button ><a id="addu" href="/adduser">Add New User</a></button>
+
+      <!-- JavaScript for Dynamically Adding New User Row -->
+      
+
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('tbody tr');
+  
+    searchInput.addEventListener('input', function () {
+      const searchTerm = searchInput.value.toLowerCase();
+  
+      tableRows.forEach(row => {
+        const userName = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+        row.style.display = userName.includes(searchTerm) ? '' : 'none';
+      });
+    });
+  </script>
+<%-include('../layout/footer')-%>

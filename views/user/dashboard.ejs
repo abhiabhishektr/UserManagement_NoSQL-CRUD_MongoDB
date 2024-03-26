@@ -1,0 +1,42 @@
+<%-include('../layout/header')-%>
+
+
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+      <a class="navbar-brand" href="#">Welcome</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto"> <!-- Use ms-auto to push to the right -->
+              <a class="nav-link active hai" aria-current="page" href="/usersignout">Logout</a>
+          </div>
+      </div>
+  </div>
+</nav>
+<section>
+    <div class="container mt-4">
+        <div class="row ms-5 card-text mb-5">
+            <% movies.forEach(function(movie) { %>
+                <div class="col-md-3 me-5 gx-5 gy-5 mt-4">
+                    <div class="card shadow-lg" style="width: 18rem; border-radius: 40px;">
+                        <img class="card-img-top mt-2 ms-3" src="<%= movie.src %>" alt="Card image cap" style="height: 18em; width: 90%; object-fit: contain;">
+                        <div class="card-body text-center bg-body-tertiary" style="height: 12em;">
+                            <h5 class="pt-4 card-title fw-bold"><%= movie.name %></h5>
+                            <p class="pt-2 text-center card-text desc"><%= movie.description %></p>
+                            <a href="#" class="btn justify-content-center btn-dark shadow-lg btn-card rounded-pill">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- ... (your header code) -->
+
+  <%-include('../layout/footer')-%>
